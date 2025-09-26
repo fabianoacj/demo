@@ -1,0 +1,720 @@
+{
+	"info": {
+		"_postman_id": "c762a8dd-f839-4d48-89ec-bd23a60bbe4c",
+		"name": "Demo",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "7465866",
+		"_collection_link": "https://trokai.postman.co/workspace/Troka%25C3%25AD~c3004850-33a2-4d06-86c0-aec3d6b1f98b/collection/7465866-c762a8dd-f839-4d48-89ec-bd23a60bbe4c?action=share&source=collection_link&creator=7465866"
+	},
+	"item": [
+		{
+			"name": "API",
+			"item": [
+				{
+					"name": "Company",
+					"item": [
+						{
+							"name": "All Companies",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://{{apiUrl}}/company",
+									"protocol": "https",
+									"host": [
+										"{{apiUrl}}"
+									],
+									"path": [
+										"company"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Company",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"var jsonData = pm.response.json();\r",
+											"pm.test(\"Company name exists\", function () {\r",
+											"    pm.expect(jsonData.name).to.exist;\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://{{apiUrl}}/company/:id",
+									"protocol": "https",
+									"host": [
+										"{{apiUrl}}"
+									],
+									"path": [
+										"company",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "{{companyId}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Company",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"pm.environment.set(\"randomCompanySuffix\", Math.floor(Math.random() * 10000));"
+										],
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = pm.response.json();\r",
+											"pm.environment.set(\"companyId\", jsonData.id);\r",
+											"pm.test(\"Response has ID\", function () {\r",
+											"    pm.expect(jsonData.id).to.exist;\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Company_{{randomCompanySuffix}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://{{apiUrl}}/company",
+									"protocol": "https",
+									"host": [
+										"{{apiUrl}}"
+									],
+									"path": [
+										"company"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Company",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200 or 204\", function () {\r",
+											"    pm.expect(pm.response.code === 200 || pm.response.code === 204).to.be.true;\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Updated_Company_{{randomCompanySuffix}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://{{apiUrl}}/company/:id",
+									"protocol": "https",
+									"host": [
+										"{{apiUrl}}"
+									],
+									"path": [
+										"company",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "{{companyId}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Company",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 204\", function () {\r",
+											"    pm.response.to.have.status(204);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://{{apiUrl}}/company/:id",
+									"protocol": "https",
+									"host": [
+										"{{apiUrl}}"
+									],
+									"path": [
+										"company",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "{{companyId}}"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Store",
+					"item": [
+						{
+							"name": "All Stores",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://{{apiUrl}}/store",
+									"protocol": "https",
+									"host": [
+										"{{apiUrl}}"
+									],
+									"path": [
+										"store"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Store",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"var jsonData = pm.response.json();\r",
+											"pm.test(\"Store name exists\", function () {\r",
+											"    pm.expect(jsonData.name).to.exist;\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://{{apiUrl}}/store/:id",
+									"protocol": "https",
+									"host": [
+										"{{apiUrl}}"
+									],
+									"path": [
+										"store",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "{{storeId}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Store",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"pm.environment.set(\"randomStoreSuffix\", Math.floor(Math.random() * 10000));"
+										],
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = pm.response.json();\r",
+											"pm.environment.set(\"storeId\", jsonData.id);\r",
+											"pm.test(\"Response has ID\", function () {\r",
+											"    pm.expect(jsonData.id).to.exist;\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Store_{{randomStoreSuffix}}\",\r\n    \"companyId\": \"{{companyId}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://{{apiUrl}}/store",
+									"protocol": "https",
+									"host": [
+										"{{apiUrl}}"
+									],
+									"path": [
+										"store"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Store",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200 or 204\", function () {\r",
+											"    pm.expect(pm.response.code === 200 || pm.response.code === 204).to.be.true;\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Updated_Store_{{randomStoreSuffix}}\",\r\n    \"companyId\": \"{{companyId}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://{{apiUrl}}/store/:id",
+									"protocol": "https",
+									"host": [
+										"{{apiUrl}}"
+									],
+									"path": [
+										"store",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "{{storeId}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Store",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 204\", function () {\r",
+											"    pm.response.to.have.status(204);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://{{apiUrl}}/store/:id",
+									"protocol": "https",
+									"host": [
+										"{{apiUrl}}"
+									],
+									"path": [
+										"store",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "{{storeId}}"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Azure Functions",
+			"item": [
+				{
+					"name": "Product",
+					"item": [
+						{
+							"name": "All Products",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{azureFunctionsUrl}}/api/product",
+									"host": [
+										"{{azureFunctionsUrl}}"
+									],
+									"path": [
+										"api",
+										"product"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Product",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"var jsonData = pm.response.json();\r",
+											"pm.test(\"Product name exists\", function () {\r",
+											"    pm.expect(jsonData.name).to.exist;\r",
+											"});\r",
+											"pm.test(\"Product price exists\", function () {\r",
+											"    pm.expect(jsonData.price).to.exist;\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{azureFunctionsUrl}}/api/product/:id",
+									"host": [
+										"{{azureFunctionsUrl}}"
+									],
+									"path": [
+										"api",
+										"product",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "{{productId}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Product",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"pm.environment.set(\"randomProductSuffix\", Math.floor(Math.random() * 10000));"
+										],
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = pm.response.json();\r",
+											"pm.environment.set(\"productId\", jsonData.id);\r",
+											"pm.test(\"Response has ID\", function () {\r",
+											"    pm.expect(jsonData.id).to.exist;\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Store_{{randomProductSuffix}}\",\r\n    \"price\": 100,\r\n    \"storeId\": \"{{storeId}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{azureFunctionsUrl}}/api/product",
+									"host": [
+										"{{azureFunctionsUrl}}"
+									],
+									"path": [
+										"api",
+										"product"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Product",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200 or 204\", function () {\r",
+											"    pm.expect(pm.response.code === 200 || pm.response.code === 204).to.be.true;\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Updated_Product_{{randomProductSuffix}}\",\r\n    \"price\": 50,\r\n    \"storeId\": \"{{storeId}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{azureFunctionsUrl}}/api/product/:id",
+									"host": [
+										"{{azureFunctionsUrl}}"
+									],
+									"path": [
+										"api",
+										"product",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "{{productId}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Product",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{azureFunctionsUrl}}/api/product/:id",
+									"host": [
+										"{{azureFunctionsUrl}}"
+									],
+									"path": [
+										"api",
+										"product",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "{{productId}}"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {},
+						"exec": [
+							"pm.request.headers.add({ key: \"x-functions-key\", value: pm.environment.get(\"functionKey\") });"
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
