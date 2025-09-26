@@ -7,6 +7,8 @@ This repository contains a .NET 8 solution with the following projects:
 - **WebApplicationDemo.Tests**: Tests for the API.
 - **FunctionAppDemo.Tests**: Tests for the Azure Functions.
 
+The Postman collection and environments are here too.
+
 ## Running Locally
 
 ### 1. Start the SQL Server Database (Required for both projects)
