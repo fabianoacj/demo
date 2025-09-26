@@ -8,6 +8,7 @@ This repository contains a .NET 8 solution with the following projects:
 - **FunctionAppDemo.Tests**: Tests for the Azure Functions.
 
 The Postman collection and environments are here too.
+When testing the production environment in Azure, the first request may be used to wake up the server. If it fails, please try again.
 
 ## Running Locally
 
